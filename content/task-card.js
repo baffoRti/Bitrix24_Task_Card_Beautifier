@@ -68,6 +68,7 @@ const CHECKLIST_TOGGLE_BIND_VERSION = "v1";
 const CHECKLIST_INIT_RETRY_DELAY = 250;
 const CHECKLIST_INIT_MAX_RETRIES = 20;
 const ENABLE_RUNTIME_LOGS = false;
+let hasCheckedExtensionUpdate = false;
 
 function logMessage(...args) {
   if (!ENABLE_RUNTIME_LOGS) {
@@ -211,7 +212,7 @@ async function getLatestUpdateInfo(options = {}) {
   const stored = await chromeStorageGet([STORAGE_KEY_UPDATE_STATE]);
   const cachedState = stored[STORAGE_KEY_UPDATE_STATE] || null;
 
-  if (!options.force && cachedState) {
+  if (options.cacheOnly) {
     return cachedState;
   }
 
@@ -327,6 +328,15 @@ async function checkForExtensionUpdate() {
   }
 
   return updateInfo;
+}
+
+function checkForExtensionUpdateOnce() {
+  if (hasCheckedExtensionUpdate) {
+    return;
+  }
+
+  hasCheckedExtensionUpdate = true;
+  checkForExtensionUpdate();
 }
 
 function createEmptySettingsRegistry() {
@@ -984,6 +994,7 @@ async function applyLayoutToPendingCards() {
 
     try {
       await applyLayout(card);
+      checkForExtensionUpdateOnce();
     } finally {
       delete card.dataset.btcLayoutApplying;
     }
@@ -3291,7 +3302,6 @@ async function init() {
     await waitForElement(SELECTORS.card);
     logMessage("Card found");
     await applyLayoutToPendingCards();
-    checkForExtensionUpdate();
   } catch {
     logMessage("Card not found within timeout");
   }
