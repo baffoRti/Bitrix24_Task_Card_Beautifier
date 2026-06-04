@@ -305,8 +305,8 @@ async function showUpdateNotice(updateInfo) {
   document.body.appendChild(createUpdatePopup(updateInfo));
 }
 
-async function checkForExtensionUpdate() {
-  const updateInfo = await getLatestUpdateInfo();
+async function checkForExtensionUpdate(options = {}) {
+  const updateInfo = await getLatestUpdateInfo({ force: options.force === true });
   if (updateInfo?.hasUpdate) {
     await showUpdateNotice(updateInfo);
   }
@@ -320,7 +320,7 @@ function checkForExtensionUpdateOnce() {
   }
 
   hasCheckedExtensionUpdate = true;
-  checkForExtensionUpdate();
+  checkForExtensionUpdate({ force: true });
 }
 
 function createEmptySettingsRegistry() {
@@ -1235,7 +1235,7 @@ function buildSettingsModalContent(settings, updateInfo = null) {
   footer.appendChild(version);
   modal.appendChild(footer);
 
-  return { modal, closeButton, resetSettingsButton, clearRegistryButton };
+  return { modal, body, closeButton, resetSettingsButton, clearRegistryButton };
 }
 
 async function openSettingsModal() {
@@ -1255,9 +1255,14 @@ async function openSettingsModal() {
   const overlay = document.createElement("div");
   overlay.className = "btc-settings-overlay --visible";
 
-  const { modal, closeButton, resetSettingsButton, clearRegistryButton } = buildSettingsModalContent(settings, updateInfo);
+  const { modal, body, closeButton, resetSettingsButton, clearRegistryButton } = buildSettingsModalContent(settings, updateInfo);
   overlay.appendChild(modal);
   document.body.appendChild(overlay);
+
+  const syncScrollEdgeState = () => {
+    const atBottom = body.scrollTop + body.clientHeight >= body.scrollHeight - 2;
+    modal.dataset.btcScrolledToBottom = atBottom ? "true" : "false";
+  };
 
   const closeModal = () => {
     overlay.remove();
@@ -1323,6 +1328,9 @@ async function openSettingsModal() {
     closeModal();
     await openSettingsModal();
   });
+
+  body.addEventListener("scroll", syncScrollEdgeState, { passive: true });
+  syncScrollEdgeState();
 
   document.addEventListener("keydown", onEscapeKeyDown, true);
   document.addEventListener("keyup", onEscapeKeyUp, true);
