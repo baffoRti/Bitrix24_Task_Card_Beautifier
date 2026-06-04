@@ -246,7 +246,10 @@ function createUpdatePopup(updateInfo) {
   message.className = "btc-update-modal__message";
   message.append("Вышла новая версия расширения ");
 
-  const version = document.createElement("strong");
+  const version = document.createElement("a");
+  version.href = updateInfo.releaseUrl;
+  version.target = "_blank";
+  version.rel = "noopener noreferrer";
   version.textContent = updateInfo.versionName;
   message.append(version);
   message.append(". Для обновления воспользуйтесь файлом ");
@@ -254,15 +257,7 @@ function createUpdatePopup(updateInfo) {
   const updateFile = document.createElement("code");
   updateFile.textContent = "update.bat";
   message.append(updateFile);
-  message.append(" в каталоге расширения или скачайте последнюю версию ");
-
-  const releaseLink = document.createElement("a");
-  releaseLink.href = updateInfo.releaseUrl;
-  releaseLink.target = "_blank";
-  releaseLink.rel = "noopener noreferrer";
-  releaseLink.textContent = "тут";
-  message.append(releaseLink);
-  message.append(". Далее обновите расширение через панель расширений вашего браузера: ");
+  message.append(" в каталоге расширения или скачайте последнюю версию со страницы релиза. Далее обновите расширение через панель расширений вашего браузера: ");
 
   const chromeExtensions = document.createElement("code");
   chromeExtensions.textContent = "chrome://extensions/";
@@ -271,11 +266,6 @@ function createUpdatePopup(updateInfo) {
 
   const actions = document.createElement("div");
   actions.className = "btc-update-modal__actions";
-
-  const releaseButton = document.createElement("button");
-  releaseButton.type = "button";
-  releaseButton.className = "btc-update-modal__primary";
-  releaseButton.textContent = "Открыть релиз";
 
   const laterButton = document.createElement("button");
   laterButton.type = "button";
@@ -287,11 +277,6 @@ function createUpdatePopup(updateInfo) {
     overlay.remove();
   };
 
-  releaseButton.addEventListener("click", async () => {
-    window.open(updateInfo.releaseUrl, "_blank", "noopener,noreferrer");
-    await closePopup();
-  });
-
   laterButton.addEventListener("click", closePopup);
   overlay.addEventListener("click", (event) => {
     if (event.target === overlay) {
@@ -299,7 +284,6 @@ function createUpdatePopup(updateInfo) {
     }
   });
 
-  actions.appendChild(releaseButton);
   actions.appendChild(laterButton);
   modal.appendChild(title);
   modal.appendChild(message);
@@ -1166,19 +1150,20 @@ function buildSettingsModalContent(settings, updateInfo = null) {
 
     const updateText = document.createElement("div");
     updateText.className = "btc-settings-modal__update-text";
-    updateText.textContent = `Доступно обновление: ${updateInfo.versionName}`;
+    updateText.append("Доступно обновление: ");
 
-    const updateLink = document.createElement("button");
-    updateLink.type = "button";
+    const updateLink = document.createElement("a");
+    updateLink.href = updateInfo.releaseUrl;
+    updateLink.target = "_blank";
+    updateLink.rel = "noopener noreferrer";
     updateLink.className = "btc-settings-modal__update-link";
-    updateLink.textContent = "Открыть релиз";
+    updateLink.textContent = updateInfo.versionName;
     updateLink.addEventListener("click", () => {
-      window.open(updateInfo.releaseUrl, "_blank", "noopener,noreferrer");
       dismissUpdateVersion(updateInfo.version);
     });
+    updateText.appendChild(updateLink);
 
     updateStatus.appendChild(updateText);
-    updateStatus.appendChild(updateLink);
     footer.appendChild(updateStatus);
   }
 

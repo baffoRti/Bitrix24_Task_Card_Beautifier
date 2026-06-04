@@ -49,6 +49,7 @@
 }
 
 .btc-update-modal__message a {
+  display: inline !important;
   color: #0f88b8 !important;
   font-weight: 700 !important;
   text-decoration: underline !important;
@@ -71,24 +72,16 @@
   margin-top: 20px !important;
 }
 
-.btc-update-modal__primary,
 .btc-update-modal__secondary {
   border: 0 !important;
   border-radius: 10px !important;
   padding: 10px 14px !important;
+  min-height: 36px !important;
+  box-sizing: border-box !important;
   font-size: 13px !important;
   line-height: 1.2 !important;
   font-weight: 600 !important;
   cursor: pointer !important;
-}
-
-.btc-update-modal__primary {
-  background: #18a0c8 !important;
-  color: #fff !important;
-}
-
-.btc-update-modal__primary:hover {
-  background: #128bb1 !important;
 }
 
 .btc-update-modal__secondary {
@@ -208,6 +201,8 @@
   border: 1px solid rgba(194, 205, 216, 0.95) !important;
   border-radius: 10px !important;
   padding: 9px 14px !important;
+  min-height: 36px !important;
+  box-sizing: border-box !important;
   background: #f8fafc !important;
   color: #334155 !important;
   font-size: 13px !important;
@@ -256,16 +251,13 @@
 }
 
 .btc-settings-modal__update-link {
-  border: 0 !important;
-  background: transparent !important;
+  display: inline !important;
   color: #0f88b8 !important;
   font-size: 13px !important;
   line-height: 1.35 !important;
   font-weight: 700 !important;
-  cursor: pointer !important;
   text-decoration: underline !important;
   text-underline-offset: 2px !important;
-  padding: 0 !important;
 }
 
 .btc-settings-modal__update-link:hover {
@@ -342,7 +334,9 @@
 .btc-settings-group__item {
   font-size: 14px !important;
   color: #41556b !important;
-  transition: opacity 0.18s ease, transform 0.18s ease !important;
+  min-height: 20px !important;
+  box-sizing: border-box !important;
+  transition: opacity 0.18s ease !important;
 }
 
 .btc-settings-group[data-group-enabled="false"] .btc-settings-group__item {
@@ -350,6 +344,10 @@
 }
 
 .btc-settings-group input[type="checkbox"] {
+  flex: 0 0 auto !important;
+  width: 13px !important;
+  height: 13px !important;
+  margin: 0 !important;
   accent-color: #18a0c8 !important;
 }
 
@@ -1300,8 +1298,8 @@
   top: 0 !important;
   right: 0 !important;
   bottom: 0 !important;
-  width: clamp(360px, 42vw, 720px) !important;
-  max-width: min(100%, 720px) !important;
+  width: clamp(560px, 58vw, 980px) !important;
+  max-width: min(100%, 980px) !important;
   background: var(--ui-color-base-0, #fff) !important;
   box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15) !important;
   transform: translateX(100%) !important;
@@ -1340,7 +1338,7 @@
   }
 
   .btc-chat-drawer-panel {
-    width: min(44vw, 640px) !important;
+    width: clamp(520px, 62vw, 920px) !important;
   }
 }
 
@@ -1359,7 +1357,7 @@
   }
 
   .btc-chat-drawer-panel {
-    width: min(52vw, 560px) !important;
+    width: min(72vw, 860px) !important;
   }
 }
 
@@ -1376,7 +1374,7 @@
   }
 
   .btc-chat-drawer-panel {
-    width: clamp(340px, 40vw, 620px) !important;
+    width: clamp(520px, 60vw, 900px) !important;
   }
 }
 
@@ -1403,7 +1401,7 @@
   }
 
   .btc-chat-drawer-panel {
-    width: min(56vw, 520px) !important;
+    width: min(76vw, 820px) !important;
   }
 }
 
