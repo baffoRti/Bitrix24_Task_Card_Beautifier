@@ -1,0 +1,1504 @@
+/* Bitrix24 Task Card Enhancer — Layout Styles */
+
+/* ============================================
+   SIDE PANEL
+   ============================================ */
+
+.btc-update-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 2147483647 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 24px !important;
+  background: rgba(15, 23, 42, 0.34) !important;
+  backdrop-filter: blur(2px) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: opacity 0.18s ease !important;
+}
+
+.btc-update-overlay.--visible {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+.btc-update-modal {
+  width: min(520px, calc(100vw - 40px)) !important;
+  border-radius: 18px !important;
+  background: #fff !important;
+  color: #172033 !important;
+  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.3) !important;
+  padding: 24px !important;
+  box-sizing: border-box !important;
+}
+
+.btc-update-modal__title {
+  margin: 0 0 12px !important;
+  font-size: 22px !important;
+  line-height: 1.2 !important;
+  font-weight: 700 !important;
+}
+
+.btc-update-modal__message {
+  margin: 0 !important;
+  color: #41556b !important;
+  font-size: 14px !important;
+  line-height: 1.55 !important;
+}
+
+.btc-update-modal__message a {
+  color: #0f88b8 !important;
+  font-weight: 700 !important;
+  text-decoration: underline !important;
+  text-underline-offset: 2px !important;
+}
+
+.btc-update-modal__message code {
+  border-radius: 6px !important;
+  padding: 2px 6px !important;
+  background: #eef4f8 !important;
+  color: #1f2b3d !important;
+  font-size: 13px !important;
+}
+
+.btc-update-modal__actions {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 10px !important;
+  margin-top: 20px !important;
+}
+
+.btc-update-modal__primary,
+.btc-update-modal__secondary {
+  border: 0 !important;
+  border-radius: 10px !important;
+  padding: 10px 14px !important;
+  font-size: 13px !important;
+  line-height: 1.2 !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+}
+
+.btc-update-modal__primary {
+  background: #18a0c8 !important;
+  color: #fff !important;
+}
+
+.btc-update-modal__primary:hover {
+  background: #128bb1 !important;
+}
+
+.btc-update-modal__secondary {
+  background: #eef3f8 !important;
+  color: #1f2b3d !important;
+}
+
+.btc-update-modal__secondary:hover {
+  background: #e4ecf4 !important;
+}
+
+.btc-settings-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 2147483646 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 24px !important;
+  background: rgba(15, 23, 42, 0.46) !important;
+  backdrop-filter: blur(3px) !important;
+}
+
+.btc-settings-modal {
+  width: min(680px, calc(100vw - 40px)) !important;
+  max-height: min(760px, calc(100vh - 48px)) !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  border-radius: 18px !important;
+  background: #fff !important;
+  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.28) !important;
+  color: #172033 !important;
+}
+
+.btc-settings-modal__header {
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  gap: 16px !important;
+  padding: 22px 24px 16px !important;
+  border-bottom: 1px solid rgba(207, 214, 220, 0.9) !important;
+}
+
+.btc-settings-modal__title-wrap {
+  min-width: 0 !important;
+}
+
+.btc-settings-modal__title {
+  margin: 0 !important;
+  font-size: 22px !important;
+  line-height: 1.2 !important;
+  font-weight: 700 !important;
+}
+
+.btc-settings-modal__hint {
+  margin: 8px 0 0 !important;
+  font-size: 14px !important;
+  line-height: 1.45 !important;
+  color: #61788d !important;
+}
+
+.btc-settings-modal__close {
+  flex: 0 0 auto !important;
+  border: 0 !important;
+  border-radius: 10px !important;
+  padding: 10px 14px !important;
+  background: #eef3f8 !important;
+  color: #1f2b3d !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+}
+
+.btc-settings-modal__close:hover {
+  background: #e4ecf4 !important;
+}
+
+.btc-settings-modal__body {
+  overflow: auto !important;
+  padding: 20px 24px 8px !important;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(138, 151, 166, 0.55) transparent;
+}
+
+.btc-settings-modal__body::-webkit-scrollbar {
+  width: 5px;
+}
+
+.btc-settings-modal__body::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(138, 151, 166, 0.5);
+}
+
+.btc-settings-modal__body::-webkit-scrollbar-thumb:hover {
+  background: rgba(111, 124, 140, 0.68);
+}
+
+.btc-settings-modal__body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.btc-settings-modal__footer {
+  padding: 4px 24px 10px !important;
+}
+
+.btc-settings-modal__actions {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  flex-wrap: wrap !important;
+  margin-bottom: 8px !important;
+}
+
+.btc-settings-modal__secondary-action {
+  border: 1px solid rgba(194, 205, 216, 0.95) !important;
+  border-radius: 10px !important;
+  padding: 9px 14px !important;
+  background: #f8fafc !important;
+  color: #334155 !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease !important;
+}
+
+.btc-settings-modal__secondary-action:hover {
+  background: #eef4f8 !important;
+  border-color: rgba(172, 188, 202, 0.95) !important;
+}
+
+.btc-settings-modal__secondary-action--danger {
+  color: #9f1239 !important;
+  border-color: rgba(244, 194, 204, 0.95) !important;
+  background: #fff7f9 !important;
+}
+
+.btc-settings-modal__secondary-action--danger:hover {
+  background: #ffedf2 !important;
+  border-color: rgba(234, 157, 176, 0.95) !important;
+}
+
+.btc-settings-modal__version {
+  text-align: center !important;
+  font-size: 12px !important;
+  line-height: 1.35 !important;
+  color: #8a97a6 !important;
+}
+
+.btc-settings-modal__update-status {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  flex-wrap: wrap !important;
+  margin-bottom: 8px !important;
+  color: #0f766e !important;
+}
+
+.btc-settings-modal__update-text {
+  font-size: 13px !important;
+  line-height: 1.35 !important;
+  font-weight: 600 !important;
+}
+
+.btc-settings-modal__update-link {
+  border: 0 !important;
+  background: transparent !important;
+  color: #0f88b8 !important;
+  font-size: 13px !important;
+  line-height: 1.35 !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  text-decoration: underline !important;
+  text-underline-offset: 2px !important;
+  padding: 0 !important;
+}
+
+.btc-settings-modal__update-link:hover {
+  color: #0b6f95 !important;
+}
+
+.btc-settings-group {
+  border: 1px solid rgba(207, 214, 220, 0.9) !important;
+  border-radius: 14px !important;
+  background: #f8fafc !important;
+  padding: 14px 16px !important;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    opacity 0.2s ease,
+    box-shadow 0.2s ease !important;
+}
+
+.btc-settings-group + .btc-settings-group {
+  margin-top: 14px !important;
+}
+
+.btc-settings-group[data-group-enabled="false"] {
+  background: #f3f5f7 !important;
+  border-color: rgba(207, 214, 220, 0.7) !important;
+  opacity: 0.76 !important;
+}
+
+.btc-settings-group__toggle,
+.btc-settings-group__item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  cursor: pointer !important;
+}
+
+.btc-settings-group__toggle {
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: #172033 !important;
+}
+
+.btc-settings-group__items {
+  margin-top: 12px !important;
+  padding-top: 12px !important;
+  border-top: 1px solid rgba(207, 214, 220, 0.75) !important;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 10px 16px !important;
+  max-height: 520px !important;
+  opacity: 1 !important;
+  overflow: hidden !important;
+  transform-origin: top center !important;
+  transition:
+    max-height 0.22s ease,
+    opacity 0.18s ease,
+    margin-top 0.18s ease,
+    padding-top 0.18s ease,
+    border-top-color 0.18s ease !important;
+}
+
+.btc-settings-group[data-group-enabled="false"] .btc-settings-group__toggle {
+  color: #728295 !important;
+}
+
+.btc-settings-group[data-group-enabled="false"] .btc-settings-group__items {
+  max-height: 0 !important;
+  opacity: 0 !important;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  border-top-color: transparent !important;
+}
+
+.btc-settings-group__item {
+  font-size: 14px !important;
+  color: #41556b !important;
+  transition: opacity 0.18s ease, transform 0.18s ease !important;
+}
+
+.btc-settings-group[data-group-enabled="false"] .btc-settings-group__item {
+  opacity: 0.45 !important;
+}
+
+.btc-settings-group input[type="checkbox"] {
+  accent-color: #18a0c8 !important;
+}
+
+/* ============================================
+   CARD LAYOUT
+   ============================================ */
+
+.tasks-full-card.btc-layout-applied {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  position: relative !important;
+}
+
+.tasks-full-card.btc-layout-applied > .tasks-full-card-main {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-height: 0 !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* ============================================
+   HEADER — full width
+   ============================================ */
+
+.tasks-full-card.btc-layout-applied .tasks-full-card-header {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 19px 17px 12px 22px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  flex-wrap: nowrap !important;
+}
+
+/* ============================================
+   CONTENT GRID
+   ============================================ */
+
+.tasks-full-card.btc-layout-applied .tasks-full-card-content {
+  display: grid !important;
+  grid-template-columns: 1fr 360px !important;
+  grid-template-rows: minmax(0, 1fr) !important;
+  gap: 0 16px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 0 0 0 22px !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-full-card-content > * {
+  min-width: 0 !important;
+  min-height: 0 !important;
+}
+
+.tasks-full-card.btc-layout-applied .btc-main-stack {
+  grid-column: 1 !important;
+  grid-row: 1 !important;
+  display: grid !important;
+  grid-template-rows: minmax(0, 1fr) auto !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  --btc-checklist-height: 260px;
+  --btc-checklist-min-height: 140px;
+}
+
+.tasks-full-card.btc-layout-applied .btc-main-placeholder {
+  grid-column: 1 !important;
+  grid-row: 1 !important;
+  min-height: 0 !important;
+  border-radius: 14px !important;
+  background: transparent !important;
+}
+
+.tasks-full-card.btc-layout-applied .btc-main-bottom {
+  display: flex !important;
+  flex-direction: column !important;
+  grid-row: 2 !important;
+  justify-content: flex-end !important;
+  margin: 0 !important;
+  min-height: 0 !important;
+  align-self: stretch !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-check-list-wrapper.--preview .check-list-widget-child-item-base,
+.tasks-full-card.btc-layout-applied .tasks-check-list-wrapper.--preview .check-list-widget-child-item-title,
+.tasks-full-card.btc-layout-applied .tasks-check-list-wrapper.--preview .check-list-widget-child-item-title textarea.b24-growing-text-area-edit,
+.tasks-full-card.btc-layout-applied .tasks-check-list-wrapper.--preview .b24-growing-text-area.check-list-widget-child-item-title,
+.tasks-full-card.btc-layout-applied .tasks-check-list-wrapper.--preview .check-list-widget-parent-item-title,
+.tasks-full-card.btc-layout-applied .tasks-check-list-wrapper.--preview .check-list-widget-parent-item-title textarea.b24-growing-text-area-edit,
+.tasks-full-card.btc-layout-applied .tasks-check-list-wrapper.--preview .b24-growing-text-area.check-list-widget-parent-item-title {
+  cursor: text !important;
+}
+
+/* ============================================
+   DESCRIPTION — row 2, fills height
+   ============================================ */
+
+.tasks-full-card.btc-layout-applied .tasks-card-description-field {
+  grid-column: auto !important;
+  grid-row: 1 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  overflow-y: hidden !important;
+  overflow-x: hidden !important;
+  padding: 0 !important;
+  align-self: stretch !important;
+  border-radius: 14px !important;
+  background: #fff !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-compact="true"] {
+  display: flex !important;
+  align-self: stretch !important;
+  overflow: hidden !important;
+  background: #fff !important;
+  scrollbar-gutter: auto !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-compact="true"] > .tasks-card-change-description-mini-container {
+  display: none !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-compact="true"] > .tasks-card-change-description-mini-btn,
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-compact="true"] > .tasks-card-change-description-mini-btn.print-ignore,
+.tasks-full-card.btc-layout-applied .tasks-card-change-description-mini-btn[data-btc-create-placeholder="true"],
+.tasks-full-card.btc-layout-applied .tasks-card-change-description-mini-btn.print-ignore[data-btc-create-placeholder="true"] {
+  position: relative !important;
+  display: flex !important;
+  flex: 1 1 auto !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 16px !important;
+  width: 100% !important;
+  min-height: 100% !important;
+  height: 100% !important;
+  padding: 18px 28px 56px !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  border: none !important;
+  border-radius: 14px !important;
+  background: #fff !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  text-align: center !important;
+  cursor: pointer !important;
+  overflow: hidden !important;
+  transition: border-color 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-compact="true"] > .tasks-card-change-description-mini-btn::before,
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-compact="true"] > .tasks-card-change-description-mini-btn.print-ignore::before,
+.tasks-full-card.btc-layout-applied .tasks-card-change-description-mini-btn[data-btc-create-placeholder="true"]::before,
+.tasks-full-card.btc-layout-applied .tasks-card-change-description-mini-btn.print-ignore[data-btc-create-placeholder="true"]::before {
+  content: "" !important;
+  width: 112px !important;
+  height: 84px !important;
+  flex: 0 0 auto !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 112 84'%3E%3Crect x='21' y='12' width='50' height='60' rx='10' fill='%23ffffff' stroke='%23b8d9ea' stroke-width='2'/%3E%3Cpath d='M31 29h30M31 39h24M31 49h20' stroke='%237aa6bf' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M68 52l17-17 9 9-17 17-10 2z' fill='%23ffd36b' stroke='%23d39a28' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M82 38l4-4 9 9-4 4z' fill='%2358b7f0' stroke='%233d89bf' stroke-width='2'/%3E%3Cpath d='M67 54l8 8' stroke='%23d39a28' stroke-width='2' stroke-linecap='round'/%3E%3Ccircle cx='87' cy='16' r='4' fill='%2358b7f0'/%3E%3Ccircle cx='93' cy='11' r='2' fill='%2398dcff'/%3E%3Ccircle cx='98' cy='18' r='2.5' fill='%2398dcff'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: contain !important;
+  transform: translateY(-12px) !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-compact="true"] > .tasks-card-change-description-mini-btn::after,
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-compact="true"] > .tasks-card-change-description-mini-btn.print-ignore::after,
+.tasks-full-card.btc-layout-applied .tasks-card-change-description-mini-btn[data-btc-create-placeholder="true"]::after,
+.tasks-full-card.btc-layout-applied .tasks-card-change-description-mini-btn.print-ignore[data-btc-create-placeholder="true"]::after {
+  content: "Нажмите, чтобы добавить описание задачи" !important;
+  white-space: normal !important;
+  max-width: 360px !important;
+  color: #61788d !important;
+  font-size: 15px !important;
+  line-height: 1.45 !important;
+  font-weight: 500 !important;
+  transform: translateY(-8px) !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-compact="true"] > .tasks-card-change-description-mini-btn:hover,
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-compact="true"] > .tasks-card-change-description-mini-btn.print-ignore:hover,
+.tasks-full-card.btc-layout-applied .tasks-card-change-description-mini-btn[data-btc-create-placeholder="true"]:hover,
+.tasks-full-card.btc-layout-applied .tasks-card-change-description-mini-btn.print-ignore[data-btc-create-placeholder="true"]:hover {
+  background: #fff !important;
+  box-shadow: inset 0 0 0 1px rgba(88, 138, 176, 0.24), 0 10px 28px rgba(88, 138, 176, 0.08) !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-compact="true"] > .tasks-card-change-description-mini-btn:active,
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-compact="true"] > .tasks-card-change-description-mini-btn.print-ignore:active,
+.tasks-full-card.btc-layout-applied .tasks-card-change-description-mini-btn[data-btc-create-placeholder="true"]:active,
+.tasks-full-card.btc-layout-applied .tasks-card-change-description-mini-btn.print-ignore[data-btc-create-placeholder="true"]:active {
+  transform: scale(0.995) !important;
+}
+
+.tasks-full-card.btc-layout-applied .btc-checklist-block,
+.tasks-full-card.btc-layout-applied .btc-main-bottom > .tasks-full-card-field-container {
+  grid-column: auto !important;
+  grid-row: auto !important;
+  flex: 0 0 var(--btc-checklist-height) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  height: var(--btc-checklist-height) !important;
+  min-width: 0 !important;
+  min-height: var(--btc-checklist-min-height) !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  overflow-x: hidden !important;
+  align-self: stretch !important;
+  border-radius: 14px !important;
+  background: #fff !important;
+}
+
+.tasks-full-card.btc-layout-applied .btc-checklist-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  width: 100% !important;
+  min-height: 48px !important;
+  padding: 12px 16px !important;
+  border: 0 !important;
+  border-bottom: 1px solid rgba(207, 214, 220, 0.7) !important;
+  background: #fff !important;
+  color: #1f2b3d !important;
+  text-align: left !important;
+  cursor: pointer !important;
+}
+
+.tasks-full-card.btc-layout-applied .btc-checklist-header__title {
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  line-height: 1.2 !important;
+}
+
+.tasks-full-card.btc-layout-applied .btc-checklist-header__chevron {
+  flex: 0 0 auto !important;
+  width: 10px !important;
+  height: 10px !important;
+  border-right: 2px solid #7f8c99 !important;
+  border-bottom: 2px solid #7f8c99 !important;
+  transform: rotate(45deg) translateY(-1px) !important;
+  transition: transform 0.18s ease !important;
+}
+
+.tasks-full-card.btc-layout-applied .btc-checklist-header[data-collapsed="true"] {
+  border-bottom: 0 !important;
+}
+
+.tasks-full-card.btc-layout-applied .btc-checklist-header[data-collapsed="true"] .btc-checklist-header__chevron {
+  transform: rotate(-45deg) translateY(1px) !important;
+}
+
+.tasks-full-card.btc-layout-applied .btc-checklist-body {
+  display: flex !important;
+  flex: 1 1 auto !important;
+  flex-direction: column !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  overflow: hidden !important;
+}
+
+.tasks-full-card.btc-layout-applied .btc-checklist-body[hidden] {
+  display: flex !important;
+}
+
+.tasks-full-card.btc-layout-applied .btc-checklist-block[data-collapsed="true"],
+.tasks-full-card.btc-layout-applied .btc-main-bottom > .tasks-full-card-field-container[data-collapsed="true"] {
+  flex: 0 0 auto !important;
+  min-height: 0 !important;
+}
+
+.tasks-full-card.btc-layout-applied .btc-checklist-block .tasks-check-list-list,
+.tasks-full-card.btc-layout-applied .btc-main-bottom > .tasks-full-card-field-container .tasks-check-list-list {
+  flex: 1 1 0 !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  display: block !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  scrollbar-gutter: stable !important;
+}
+
+.tasks-full-card.btc-layout-applied .btc-checklist-block[data-collapsed="true"] .tasks-check-list-list,
+.tasks-full-card.btc-layout-applied .btc-main-bottom > .tasks-full-card-field-container[data-collapsed="true"] .tasks-check-list-list {
+  flex: 0 0 auto !important;
+  overflow-y: visible !important;
+}
+
+.tasks-full-card.btc-layout-applied .btc-checklist-resizer {
+  flex: 0 0 14px !important;
+  height: 14px !important;
+  width: 100% !important;
+  margin: 0 !important;
+  background: linear-gradient(90deg, #cfd6dc, #cfd6dc) center/56px 2px no-repeat transparent !important;
+  cursor: row-resize !important;
+  position: relative !important;
+  z-index: 2 !important;
+  pointer-events: auto !important;
+  touch-action: none !important;
+  user-select: none !important;
+  border-radius: 999px !important;
+}
+
+.tasks-full-card.btc-layout-applied .btc-checklist-resizer:hover {
+  background: linear-gradient(90deg, #b8c5cf, #b8c5cf) center/56px 2px no-repeat transparent !important;
+}
+
+.tasks-full-card.btc-layout-applied .btc-checklist-resizer[data-locked="true"] {
+  pointer-events: none !important;
+  cursor: default !important;
+}
+
+/* Description always expanded */
+.tasks-full-card.btc-layout-applied .tasks-card-entity-collapsible-text {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  max-height: none !important;
+  height: auto !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  width: calc(100% + 14px) !important;
+  margin-right: -17px !important;
+  padding-right: 17px !important;
+  box-sizing: border-box !important;
+  padding-bottom: 12px !important;
+  scrollbar-gutter: stable !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-card-entity-collapsible-footer {
+  display: flex !important;
+  background: #fff !important;
+  position: sticky !important;
+  bottom: 0 !important;
+  z-index: 2 !important;
+  flex: 0 0 auto !important;
+  min-height: 50px !important;
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+  margin-top: 0 !important;
+  box-sizing: border-box !important;
+  align-items: center !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-full-card-field-container.print-no-box-shadow {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-full-card-field-container.print-no-box-shadow .tasks-card-entity-collapsible-text {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-card-entity-collapsible-text .ui-typography-container,
+.tasks-full-card.btc-layout-applied .tasks-card-entity-collapsible-text .tasks-card-description-editor-files.--read-only,
+.tasks-full-card.btc-layout-applied .tasks-card-entity-collapsible-text .tasks-entity-text-area-files,
+.tasks-full-card.btc-layout-applied .tasks-card-entity-collapsible-text .disk-user-field-control.--has-files.--embedded {
+  flex: 0 0 auto !important;
+  width: 100% !important;
+  max-width: none !important;
+  box-sizing: border-box !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-card-entity-collapsible-text .tasks-card-description-editor-files.--read-only,
+.tasks-full-card.btc-layout-applied .tasks-card-entity-collapsible-text .tasks-entity-text-area-files,
+.tasks-full-card.btc-layout-applied .tasks-card-entity-collapsible-text .disk-user-field-control.--has-files.--embedded {
+  margin-top: auto !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-card-entity-collapsible-text .ui-text-editor-editable {
+  padding-right: 0 !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-full-card-field-container.print-no-box-shadow .tasks-card-entity-collapsible-footer {
+  margin-top: auto !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-full-card-field-container.print-no-box-shadow .tasks-card-description-editor-files.--read-only {
+  flex: 0 0 auto !important;
+  height: auto !important;
+  min-height: 0 !important;
+  align-self: stretch !important;
+  padding: 0 !important;
+  margin-top: auto !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-full-card-field-container.print-no-box-shadow:has(> .tasks-card-description-editor-files.--read-only):not(:has(.tasks-card-entity-collapsible-text)) {
+  display: grid !important;
+  grid-template-rows: minmax(0, 1fr) auto !important;
+  align-items: stretch !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-full-card-field-container.print-no-box-shadow:has(> .tasks-card-description-editor-files.--read-only):not(:has(.tasks-card-entity-collapsible-text)) > .tasks-card-description-editor-files.--read-only {
+  align-self: end !important;
+  margin-top: 0 !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-field-files .tasks-field-files-more-button,
+.tasks-full-card.btc-layout-applied .tasks-field-files .tasks-field-files-shadow,
+.tasks-full-card.btc-layout-applied .tasks-field-files .tasks-field-files-shadow-white {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-field-files .tasks-field-files-title,
+.tasks-full-card.btc-layout-applied .tasks-field-files .tasks-field-files-main,
+.tasks-full-card.btc-layout-applied .tasks-field-files .tasks-field-files-add-container {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-field-files .tasks-field-files-add {
+  display: block !important;
+  position: static !important;
+  top: auto !important;
+  bottom: auto !important;
+  margin-top: 0 !important;
+  transform: translateY(0) !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-field-files .tasks-field-files-text,
+.tasks-full-card.btc-layout-applied .tasks-field-files .tasks-field-files-add,
+.tasks-full-card.btc-layout-applied .tasks-field-files .tasks-field-files-icon {
+  align-self: center !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-card-entity-collapsible-footer .tasks-card-entity-collapsible-btn {
+  display: none !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-card-entity-collapsible-shadow,
+.tasks-full-card.btc-layout-applied .tasks-card-entity-collapsible-shadow-white-bottom {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-card-entity-collapsible-text::before,
+.tasks-full-card.btc-layout-applied .tasks-card-entity-collapsible-text::after,
+.tasks-full-card.btc-layout-applied .tasks-card-entity-collapsible-footer::before,
+.tasks-full-card.btc-layout-applied .tasks-card-entity-collapsible-footer::after,
+.tasks-full-card.btc-layout-applied .tasks-card-entity-collapsible-collapse-button::before,
+.tasks-full-card.btc-layout-applied .tasks-card-entity-collapsible-collapse-button::after,
+.tasks-full-card.btc-layout-applied .tasks-card-entity-collapsible-edit-button::before,
+.tasks-full-card.btc-layout-applied .tasks-card-entity-collapsible-edit-button::after {
+  display: none !important;
+  content: none !important;
+  background: none !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+/* Description field container stretches */
+.tasks-full-card.btc-layout-applied .tasks-card-description-field > .tasks-full-card-field-container {
+  min-height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  border-radius: 14px !important;
+  background: #fff !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-compact="true"] > .tasks-full-card-field-container {
+  min-height: auto !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-card-description-field > .tasks-full-card-field-container.print-no-box-shadow {
+  min-height: 0 !important;
+  height: 100% !important;
+  overflow-x: hidden !important;
+  box-shadow: none !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-card-description-field:not([data-btc-compact="true"]) {
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-editing="true"] {
+  padding-bottom: 14px !important;
+  box-sizing: border-box !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-editing="true"] > .tasks-card-change-description-mini-btn,
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-editing="true"] > .tasks-card-change-description-mini-btn[data-btc-create-placeholder="false"],
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-editing="true"] > .tasks-card-change-description-mini-btn.print-ignore[data-btc-create-placeholder="false"],
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-editing="true"] > .tasks-card-change-description-mini-container {
+  display: flex !important;
+  flex: 1 1 auto !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: stretch !important;
+  width: 100% !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: #fff !important;
+  overflow: hidden !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-editing="true"] > .tasks-card-change-description-mini-btn[data-btc-create-placeholder="false"]::before,
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-editing="true"] > .tasks-card-change-description-mini-btn[data-btc-create-placeholder="false"]::after,
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-editing="true"] > .tasks-card-change-description-mini-btn.print-ignore[data-btc-create-placeholder="false"]::before,
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-editing="true"] > .tasks-card-change-description-mini-btn.print-ignore[data-btc-create-placeholder="false"]::after {
+  display: none !important;
+  content: none !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-editing="true"] > .tasks-card-change-description-mini-btn[data-btc-create-placeholder="false"] > .tasks-full-card-field-container,
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-editing="true"] > .tasks-card-change-description-mini-btn.print-ignore[data-btc-create-placeholder="false"] > .tasks-full-card-field-container,
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-editing="true"] > .tasks-card-change-description-mini-container > .tasks-full-card-field-container,
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-editing="true"] > .tasks-full-card-field-container.--description-preview {
+  width: 100% !important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  display: grid !important;
+  grid-template-rows: minmax(0, 1fr) auto !important;
+  align-items: stretch !important;
+  align-content: stretch !important;
+  overflow: hidden !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-editing="true"] > .tasks-card-change-description-mini-btn[data-btc-create-placeholder="false"] > .tasks-full-card-field-container > *,
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-editing="true"] > .tasks-card-change-description-mini-btn.print-ignore[data-btc-create-placeholder="false"] > .tasks-full-card-field-container > *,
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-editing="true"] > .tasks-card-change-description-mini-container > .tasks-full-card-field-container > *,
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-editing="true"] > .tasks-full-card-field-container.--description-preview > * {
+  min-height: 0 !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-editing="true"] > .tasks-card-change-description-mini-btn[data-btc-create-placeholder="false"] > .tasks-full-card-field-container > :first-child,
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-editing="true"] > .tasks-card-change-description-mini-btn.print-ignore[data-btc-create-placeholder="false"] > .tasks-full-card-field-container > :first-child,
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-editing="true"] > .tasks-card-change-description-mini-container > .tasks-full-card-field-container > :first-child,
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-editing="true"] > .tasks-full-card-field-container.--description-preview > :first-child {
+  min-height: 0 !important;
+  align-self: stretch !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-editing="true"] > .tasks-card-change-description-mini-btn[data-btc-create-placeholder="false"] > .tasks-full-card-field-container > :last-child,
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-editing="true"] > .tasks-card-change-description-mini-btn.print-ignore[data-btc-create-placeholder="false"] > .tasks-full-card-field-container > :last-child,
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-editing="true"] > .tasks-card-change-description-mini-container > .tasks-full-card-field-container > :last-child,
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-editing="true"] > .tasks-full-card-field-container.--description-preview > :last-child {
+  align-self: stretch !important;
+  margin-top: auto !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-editing="true"] .tasks-entity-text-area-wrapper,
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-editing="true"] .ui-text-editor.--editable,
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-editing="true"] .ui-text-editor-inner,
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-editing="true"] .ui-text-editor-scroller {
+  display: flex !important;
+  flex: 1 1 auto !important;
+  flex-direction: column !important;
+  min-height: 0 !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-editing="true"] .ui-text-editor-editable,
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-editing="true"] [data-lexical-editor='true'],
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-editing="true"] [contenteditable='true'] {
+  display: block !important;
+  width: 100% !important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-editing="true"] .tasks-card-description-footer-container {
+  flex: 0 0 auto !important;
+  margin-top: auto !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-compact="true"] .tasks-card-description-name,
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-compact="true"] .tasks-card-description-edit,
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-compact="true"] [class*="description-name"],
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-compact="true"] [class*="description-edit"],
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-compact="true"] .tasks-full-card-field-container.--small-vertical-padding,
+.tasks-full-card.btc-layout-applied .tasks-card-change-description-mini-btn[data-btc-create-placeholder="true"] .tasks-card-description-name,
+.tasks-full-card.btc-layout-applied .tasks-card-change-description-mini-btn[data-btc-create-placeholder="true"] .tasks-card-description-edit,
+.tasks-full-card.btc-layout-applied .tasks-card-change-description-mini-btn[data-btc-create-placeholder="true"] [class*="description-name"],
+.tasks-full-card.btc-layout-applied .tasks-card-change-description-mini-btn[data-btc-create-placeholder="true"] [class*="description-edit"],
+.tasks-full-card.btc-layout-applied .tasks-card-change-description-mini-btn[data-btc-create-placeholder="true"] .tasks-full-card-field-container.--small-vertical-padding {
+  display: none !important;
+}
+
+.tasks-full-card.btc-layout-applied .b24-field-list-row[data-btc-completion-inline-edit="true"] .b24-field-list-value {
+  display: block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+.tasks-full-card.btc-layout-applied .b24-field-list-row[data-btc-completion-inline-edit="true"] .b24-field-list-value > .btc-completion-inline-shell {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+.tasks-full-card.btc-layout-applied .b24-field-list-row[data-btc-completion-inline-edit="true"] .b24-field-list-value > .btc-completion-inline-shell > .tasks-field-date-plan {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  order: 1 !important;
+}
+
+.tasks-full-card.btc-layout-applied .b24-field-list-row[data-btc-completion-inline-edit="true"] .tasks-field-date-plan .b24-field-list,
+.tasks-full-card.btc-layout-applied .b24-field-list-row[data-btc-completion-inline-edit="true"] .tasks-field-date-plan .b24-field-list-row,
+.tasks-full-card.btc-layout-applied .b24-field-list-row[data-btc-completion-inline-edit="true"] .tasks-field-date-plan .b24-field-list-value {
+  display: block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.tasks-full-card.btc-layout-applied .b24-field-list-row[data-btc-completion-inline-edit="true"] .tasks-field-date-plan .b24-field-list-title {
+  display: none !important;
+}
+
+.tasks-full-card.btc-layout-applied .b24-field-list-row[data-btc-completion-inline-edit="true"] .tasks-field-date-plan .b24-hover-pill {
+  display: block !important;
+  max-width: 100% !important;
+}
+
+.tasks-full-card.btc-layout-applied .b24-field-list-row[data-btc-completion-inline-edit="true"] .tasks-field-date-plan .b24-hover-pill-content {
+  white-space: nowrap !important;
+}
+
+.tasks-full-card.btc-layout-applied .b24-field-list-row[data-btc-completion-inline-edit="true"] .tasks-field-date-plan .b24-hover-pill-content > div {
+  white-space: nowrap !important;
+}
+
+.tasks-full-card.btc-layout-applied .b24-field-list-row[data-btc-completion-inline-edit="true"] .b24-field-hover-button {
+  flex: 0 0 auto !important;
+  order: 2 !important;
+  margin-left: auto !important;
+  align-self: center !important;
+  display: flex !important;
+}
+
+/* ============================================
+   FIELDS — row 2, right column
+   ============================================ */
+
+.tasks-full-card.btc-layout-applied .tasks-full-card-fields {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 9px !important;
+  align-self: stretch !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+  scrollbar-gutter: stable !important;
+  padding: 0 17px 0 0 !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-full-card-chips-fields {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 9px !important;
+}
+
+/* Use only parent gap for vertical spacing in right panel. */
+.tasks-full-card.btc-layout-applied .tasks-full-card-fields > *,
+.tasks-full-card.btc-layout-applied .tasks-full-card-chips-fields > * {
+  margin: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-full-card-field-container {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* ============================================
+   FIELDS LIST — single column
+   ============================================ */
+
+.tasks-full-card.btc-layout-applied .b24-field-list {
+  grid-template-columns: 1fr !important;
+  width: 100% !important;
+  row-gap: 0 !important;
+  align-items: start !important;
+}
+
+.tasks-full-card.btc-layout-applied [data-btc-hidden-by-settings="true"] {
+  display: none !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-full-card-fields > [data-btc-hidden-by-settings="true"],
+.tasks-full-card.btc-layout-applied .tasks-full-card-chips-fields > [data-btc-hidden-by-settings="true"] {
+  display: none !important;
+  position: absolute !important;
+  inset: auto !important;
+  width: 0 !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-full-card-field-container[data-btc-hidden-by-settings="true"] {
+  margin: 0 !important;
+  padding: 0 !important;
+  min-height: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-full-card-fields .tasks-full-card-field-container:has(.b24-field-list) {
+  padding-bottom: 0 !important;
+}
+
+.tasks-full-card.btc-layout-applied .b24-field-list-title {
+  font-size: 12px !important;
+  color: var(--ui-color-base-50, #999) !important;
+  display: block !important;
+  align-self: start !important;
+  line-height: 1 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin-bottom: 0 !important;
+  padding-bottom: 2px !important;
+}
+
+.tasks-full-card.btc-layout-applied .b24-field-list-value {
+  align-self: start !important;
+  line-height: 1.2 !important;
+  margin-bottom: 0 !important;
+  padding-bottom: 22px !important;
+}
+
+.tasks-full-card.btc-layout-applied .b24-field-list-title.--with-separator,
+.tasks-full-card.btc-layout-applied .b24-field-list-value.--with-separator {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  border-top: none !important;
+}
+
+.tasks-full-card.btc-layout-applied .b24-field-list-title.--with-separator::before,
+.tasks-full-card.btc-layout-applied .b24-field-list-title.--with-separator::after,
+.tasks-full-card.btc-layout-applied .b24-field-list-value.--with-separator::before,
+.tasks-full-card.btc-layout-applied .b24-field-list-value.--with-separator::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* Keep chips navigation compact and visible */
+.tasks-full-card.btc-layout-applied .tasks-full-card-chips {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  padding: 0 !important;
+  margin-top: 0 !important;
+  height: auto !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-full-card-chips .ui-chip {
+  margin: 0 !important;
+}
+
+/* ============================================
+   FOOTER BUTTONS
+   ============================================ */
+
+.tasks-full-card.btc-layout-applied .tasks-full-card-footer {
+  display: none !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-full-card-footer-edit {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  align-self: flex-start !important;
+  max-width: fit-content !important;
+  width: auto !important;
+  padding: 12px 17px 12px 22px !important;
+  border-top: none !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-full-card-footer-create {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  align-self: flex-start !important;
+  max-width: fit-content !important;
+  width: auto !important;
+  padding: 12px 17px 12px 22px !important;
+  border-top: none !important;
+}
+
+/* ============================================
+   SMALL VERTICAL PADDING CONTAINERS
+   ============================================ */
+
+.tasks-full-card.btc-layout-applied .tasks-full-card-field-container.--small-vertical-padding {
+  padding: 18px !important;
+  margin: 0 !important;
+  min-height: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-full-card-field-container.--small-vertical-padding .ui-empty-state,
+.tasks-full-card.btc-layout-applied .tasks-full-card-field-container.--small-vertical-padding [class*="empty-state"],
+.tasks-full-card.btc-layout-applied .tasks-full-card-field-container.--small-vertical-padding [class*="placeholder"] {
+  transform: scale(1.3) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* ============================================
+   CHAT TOGGLE BUTTON IN HEADER
+   ============================================ */
+
+.btc-chat-toggle-header {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 64px !important;
+  max-width: 100% !important;
+  height: 32px !important;
+  padding: 0 14px !important;
+  background: linear-gradient(135deg, #1fb8e0 0%, #18a0c8 100%) !important;
+  color: #fff !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  border: none !important;
+  border-radius: 16px !important;
+  box-shadow: 0 2px 12px rgba(24,160,200,0.35) !important;
+  margin-left: 0 !important;
+  letter-spacing: 0.3px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  flex-shrink: 0 !important;
+}
+
+.btc-settings-button-header {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 30px !important;
+  height: 30px !important;
+  margin-left: auto !important;
+  margin-right: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  color: #9eabb8 !important;
+  box-shadow: none !important;
+  cursor: pointer !important;
+  transition: color 0.18s ease, background 0.18s ease, transform 0.18s ease !important;
+  flex-shrink: 0 !important;
+}
+
+.btc-settings-button-header:hover {
+  background: rgba(15, 23, 42, 0.05) !important;
+  color: #687587 !important;
+  transform: translateY(-1px) !important;
+}
+
+.btc-settings-button-header:active {
+  transform: translateY(0) !important;
+}
+
+.btc-settings-button-header__icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 18px !important;
+  height: 18px !important;
+}
+
+.btc-settings-button-header__icon svg {
+  display: block !important;
+  width: 18px !important;
+  height: 18px !important;
+}
+
+.btc-chat-toggle-header:hover {
+  background: linear-gradient(135deg, #2cc8f0 0%, #1fb8e0 100%) !important;
+  box-shadow: 0 4px 16px rgba(24,160,200,0.5) !important;
+  transform: translateY(-1px) !important;
+}
+
+.btc-chat-toggle-header:active {
+  transform: translateY(0) !important;
+  box-shadow: 0 2px 8px rgba(24,160,200,0.3) !important;
+}
+
+/* ============================================
+   CHAT DRAWER
+   ============================================ */
+
+.btc-chat-drawer {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  pointer-events: none !important;
+  z-index: 1000 !important;
+}
+
+.btc-chat-drawer-overlay {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  background: rgba(0, 0, 0, 0.3) !important;
+  opacity: 0 !important;
+  transition: opacity 0.25s ease !important;
+  pointer-events: none !important;
+}
+
+.btc-chat-drawer.--open .btc-chat-drawer-overlay {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+.btc-chat-drawer-panel {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: clamp(360px, 42vw, 720px) !important;
+  max-width: min(100%, 720px) !important;
+  background: var(--ui-color-base-0, #fff) !important;
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15) !important;
+  transform: translateX(100%) !important;
+  transition: transform 0.25s ease !important;
+  pointer-events: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+
+.btc-chat-drawer-panel > * {
+  min-height: 0 !important;
+}
+
+.btc-chat-drawer.--open .btc-chat-drawer-panel {
+  transform: translateX(0) !important;
+}
+
+.btc-chat-drawer-content {
+  flex: 1 1 auto !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+
+@media (max-width: 1600px) {
+  .tasks-full-card.btc-layout-applied .tasks-full-card-content {
+    grid-template-columns: minmax(0, 1fr) 320px !important;
+    gap: 0 16px !important;
+    padding: 0 0 0 18px !important;
+  }
+
+  .tasks-full-card.btc-layout-applied .tasks-full-card-fields {
+    padding-right: 14px !important;
+  }
+
+  .btc-chat-drawer-panel {
+    width: min(44vw, 640px) !important;
+  }
+}
+
+@media (max-width: 1280px) {
+  .tasks-full-card.btc-layout-applied .tasks-full-card-content {
+    grid-template-columns: minmax(0, 1fr) 288px !important;
+    gap: 0 12px !important;
+    padding-left: 14px !important;
+  }
+
+  .tasks-full-card.btc-layout-applied .tasks-full-card-header,
+  .tasks-full-card.btc-layout-applied .tasks-full-card-footer-edit,
+  .tasks-full-card.btc-layout-applied .tasks-full-card-footer-create {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  .btc-chat-drawer-panel {
+    width: min(52vw, 560px) !important;
+  }
+}
+
+@media (max-height: 900px) {
+  .tasks-full-card.btc-layout-applied .tasks-full-card-header {
+    padding-top: 14px !important;
+    padding-bottom: 10px !important;
+  }
+
+  .tasks-full-card.btc-layout-applied .tasks-full-card-footer-edit,
+  .tasks-full-card.btc-layout-applied .tasks-full-card-footer-create {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+  }
+
+  .btc-chat-drawer-panel {
+    width: clamp(340px, 40vw, 620px) !important;
+  }
+}
+
+@media (max-height: 760px) {
+  .tasks-full-card.btc-layout-applied .tasks-full-card-content {
+    grid-template-columns: minmax(0, 1fr) 300px !important;
+    gap: 0 12px !important;
+  }
+
+  .tasks-full-card.btc-layout-applied .tasks-full-card-header {
+    padding-top: 12px !important;
+    padding-bottom: 8px !important;
+  }
+
+  .tasks-full-card.btc-layout-applied .tasks-full-card-header,
+  .tasks-full-card.btc-layout-applied .tasks-full-card-content,
+  .tasks-full-card.btc-layout-applied .tasks-full-card-footer-edit,
+  .tasks-full-card.btc-layout-applied .tasks-full-card-footer-create {
+    padding-left: 14px !important;
+  }
+
+  .tasks-full-card.btc-layout-applied .tasks-full-card-fields {
+    padding-right: 10px !important;
+  }
+
+  .btc-chat-drawer-panel {
+    width: min(56vw, 520px) !important;
+  }
+}
+
+@media (max-width: 980px) {
+  .tasks-full-card.btc-layout-applied .tasks-full-card-header {
+    flex-wrap: wrap !important;
+  }
+
+  .tasks-full-card.btc-layout-applied .tasks-full-card-content {
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-rows: auto auto !important;
+    gap: 12px 0 !important;
+    overflow-y: auto !important;
+    padding-right: 14px !important;
+  }
+
+  .tasks-full-card.btc-layout-applied .btc-main-stack,
+  .tasks-full-card.btc-layout-applied .tasks-full-card-fields {
+    grid-column: 1 !important;
+    height: auto !important;
+    max-height: none !important;
+  }
+
+  .tasks-full-card.btc-layout-applied .btc-main-stack {
+    grid-row: 1 !important;
+    --btc-checklist-height: 320px;
+  }
+
+  .tasks-full-card.btc-layout-applied .tasks-full-card-fields {
+    grid-row: 2 !important;
+    overflow: visible !important;
+    padding-right: 0 !important;
+  }
+
+  .tasks-full-card.btc-layout-applied .tasks-card-description-field,
+  .tasks-full-card.btc-layout-applied .btc-checklist-block {
+    height: auto !important;
+    max-height: none !important;
+  }
+
+  .tasks-full-card.btc-layout-applied .btc-checklist-resizer {
+    display: none !important;
+  }
+
+  .btc-chat-drawer-panel {
+    width: min(88vw, 480px) !important;
+  }
+}
+
+/* Hide original chat */
+.tasks-full-card.btc-layout-applied > .tasks-full-card-chat {
+  display: none !important;
+}
+
+/* ============================================
+   SCROLLBARS
+   ============================================ */
+
+.tasks-full-card.btc-layout-applied .tasks-card-description-field::-webkit-scrollbar,
+.tasks-full-card.btc-layout-applied .tasks-card-entity-collapsible-text::-webkit-scrollbar,
+.tasks-full-card.btc-layout-applied .tasks-full-card-fields::-webkit-scrollbar,
+.tasks-full-card.btc-layout-applied .btc-checklist-block .tasks-check-list-list::-webkit-scrollbar,
+.tasks-full-card.btc-layout-applied .btc-main-bottom > .tasks-full-card-field-container .tasks-check-list-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-card-description-field::-webkit-scrollbar-thumb,
+.tasks-full-card.btc-layout-applied .tasks-card-entity-collapsible-text::-webkit-scrollbar-thumb,
+.tasks-full-card.btc-layout-applied .tasks-full-card-fields::-webkit-scrollbar-thumb,
+.tasks-full-card.btc-layout-applied .btc-checklist-block .tasks-check-list-list::-webkit-scrollbar-thumb,
+.tasks-full-card.btc-layout-applied .btc-main-bottom > .tasks-full-card-field-container .tasks-check-list-list::-webkit-scrollbar-thumb {
+  background: var(--ui-color-base-30, #c6cdd3);
+  border-radius: 3px;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-card-description-field::-webkit-scrollbar-track,
+.tasks-full-card.btc-layout-applied .tasks-card-entity-collapsible-text::-webkit-scrollbar-track,
+.tasks-full-card.btc-layout-applied .tasks-full-card-fields::-webkit-scrollbar-track,
+.tasks-full-card.btc-layout-applied .btc-checklist-block .tasks-check-list-list::-webkit-scrollbar-track,
+.tasks-full-card.btc-layout-applied .btc-main-bottom > .tasks-full-card-field-container .tasks-check-list-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ============================================
+   DARK THEME
+   ============================================ */
+
+body.bitrix24-dark-theme .btc-chat-drawer-panel {
+  background: var(--ui-color-base-90, #1a1a1a) !important;
+}
+
+body.bitrix24-dark-theme .tasks-full-card.btc-layout-applied .tasks-card-description-field::-webkit-scrollbar-thumb,
+body.bitrix24-dark-theme .tasks-full-card.btc-layout-applied .tasks-card-entity-collapsible-text::-webkit-scrollbar-thumb,
+body.bitrix24-dark-theme .tasks-full-card.btc-layout-applied .tasks-full-card-fields::-webkit-scrollbar-thumb,
+body.bitrix24-dark-theme .tasks-full-card.btc-layout-applied .btc-checklist-block .tasks-check-list-list::-webkit-scrollbar-thumb,
+body.bitrix24-dark-theme .tasks-full-card.btc-layout-applied .btc-main-bottom > .tasks-full-card-field-container .tasks-check-list-list::-webkit-scrollbar-thumb {
+  background: var(--ui-color-base-60, #525c69);
+}
