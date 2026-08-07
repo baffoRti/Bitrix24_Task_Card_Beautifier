@@ -45,7 +45,7 @@ for /L %%I in (1,1,!browser_count!) do echo %%I. !browser_name_%%I!
 set /p browser_choice=Browser number: 
 
 for /L %%I in (1,1,!browser_count!) do (
-  if "!browser_choice!"=="%%I" start "" "!browser_path_%%I!" "!browser_page_%%I!"
+  if "!browser_choice!"=="%%I" start "" /B "!browser_path_%%I!" --new-tab "!browser_page_%%I!"
 )
 exit /b 0
 
