@@ -22,6 +22,17 @@ const LEGACY_ITEM_KEYS = {
   "placements::запустить бп": "bpRun",
 };
 
+const STABLE_SYSTEM_FIELD_KEYS = {
+  проект: "system-row-project",
+  стадия: "system-row-stage",
+};
+
+const PROJECT_STAGE_GROUP = {
+  id: "system-project-stage",
+  title: "Стадия и элементы CRM",
+  toggle: "group-system-project-stage",
+};
+
 const RIGHT_MENU_TITLE_SELECTORS = [
   ".tasks-field-files-title",
   ".tasks-field-results-title",
@@ -55,6 +66,16 @@ const SELECTORS = {
   userFieldsContainer: ".tasks-field-user-fields",
   placementsList: ".tasks-field-placements-list",
 };
+
+const DESCRIPTION_CONTENT_SELECTOR = [
+  ".tasks-card-entity-collapsible-text",
+  ".ui-typography-container",
+  "textarea",
+  "[contenteditable='true']",
+  ".tasks-card-description-editor-files.--read-only",
+  ".tasks-entity-text-area-files",
+  ".disk-user-field-control.--has-files.--embedded",
+].join(", ");
 
 const STORAGE_KEY_CHAT = "btc-chat-drawer-open";
 const STORAGE_KEY_BLOCKS = "btc_blocks";
@@ -334,17 +355,31 @@ function normalizeSettingsRegistry(registry) {
   const storedGroups = Array.isArray(registry?.groups) ? registry.groups : [];
 
   storedGroups.forEach((storedGroup) => {
-    const groupId = String(storedGroup?.id || "").trim();
-    const title = String(storedGroup?.title || "").replace(/\s+/g, " ").trim();
-    const toggle = String(storedGroup?.toggle || "").trim();
+    let groupId = String(storedGroup?.id || "").trim();
+    let title = String(storedGroup?.title || "").replace(/\s+/g, " ").trim();
+    let toggle = String(storedGroup?.toggle || "").trim();
     if (!groupId || !title || !toggle || isLegacyDynamicSpecialSettingsGroupTitle(title)) {
       return;
     }
 
-    const dedupeKeys = new Set();
-    const dedupeLabels = new Set();
     const sourceItems = Array.isArray(storedGroup?.items) ? storedGroup.items : [];
-    const group = { id: groupId, title, toggle, items: [] };
+    const isLegacyProjectStageGroup = groupId.startsWith("field-list_") && sourceItems.some((item) => {
+      const label = normalizeSettingLabel(item?.label);
+      return label === "проект" || label === "стадия";
+    });
+
+    if (isLegacyProjectStageGroup) {
+      ({ id: groupId, title, toggle } = PROJECT_STAGE_GROUP);
+    }
+
+    let group = nextRegistry.groups.find((entry) => entry.id === groupId);
+    if (!group) {
+      group = { id: groupId, title, toggle, items: [] };
+      nextRegistry.groups.push(group);
+    }
+
+    const dedupeKeys = new Set(group.items.map((item) => item.key));
+    const dedupeLabels = new Set(group.items.map((item) => normalizeSettingLabel(item.label)));
 
     sourceItems.forEach((item) => {
       const label = String(item?.label || "").replace(/\s+/g, " ").trim();
@@ -353,7 +388,7 @@ function normalizeSettingsRegistry(registry) {
         return;
       }
 
-      const key = String(item?.key || "").trim() || `${groupId}_item_${hashSettingLabel(normalizedLabel)}`;
+      const key = STABLE_SYSTEM_FIELD_KEYS[normalizedLabel] || String(item?.key || "").trim() || `${groupId}_item_${hashSettingLabel(normalizedLabel)}`;
       if (dedupeKeys.has(key)) {
         return;
       }
@@ -363,7 +398,6 @@ function normalizeSettingsRegistry(registry) {
       group.items.push({ key, label });
     });
 
-    nextRegistry.groups.push(group);
   });
 
   return nextRegistry;
@@ -461,12 +495,45 @@ function resolveSettingsGroupKey(areaType, areaTitle) {
 
 function resolveSettingItemKey(groupId, label, areaType = "") {
   const normalizedLabel = normalizeSettingLabel(label);
+  const stableKey = STABLE_SYSTEM_FIELD_KEYS[normalizedLabel];
+  if (stableKey) {
+    return stableKey;
+  }
+
   const legacyKey = LEGACY_ITEM_KEYS[`${areaType}::${normalizedLabel}`];
   if (legacyKey) {
     return legacyKey;
   }
 
   return `${groupId}_item_${hashSettingLabel(normalizedLabel)}`;
+}
+
+function scanProjectStageArea(container, fieldList, zone) {
+  if (zone !== "chips" || !fieldList) {
+    return null;
+  }
+
+  const items = getVisibleFieldRows(fieldList)
+    .map((node) => {
+      const label = getTextContent(node.querySelector(".b24-field-list-title"));
+      const normalizedLabel = normalizeSettingLabel(label);
+      return (normalizedLabel === "проект" || normalizedLabel === "стадия")
+        ? { key: STABLE_SYSTEM_FIELD_KEYS[normalizedLabel], label, node }
+        : null;
+    })
+    .filter(Boolean);
+
+  const hasProjectOrStage = items.some((item) => item.key === "system-row-project" || item.key === "system-row-stage");
+  if (!hasProjectOrStage) {
+    return null;
+  }
+
+  return {
+    ...PROJECT_STAGE_GROUP,
+    areaType: "project-stage",
+    containerNode: container,
+    items,
+  };
 }
 
 function buildSingleItemArea(container, areaType, areaTitle) {
@@ -674,6 +741,11 @@ function scanRightMenuArea(container, zone) {
   const fieldList = container.querySelector(":scope .b24-field-list");
   const fieldRows = getVisibleFieldRows(fieldList);
   if (fieldRows.length) {
+    const projectStageArea = scanProjectStageArea(container, fieldList, zone);
+    if (projectStageArea) {
+      return projectStageArea;
+    }
+
     const areaTitle = deriveAreaTitleFromContainer(container, zone);
     const groupId = resolveSettingsGroupKey(zone === "main" ? "main-fields" : "field-list", areaTitle);
     const items = fieldRows
@@ -853,19 +925,66 @@ function syncSettingsRegistryFromAllCards() {
   return mergeSettingsRegistries(scannedRegistry, getSettingsRegistrySync());
 }
 
+function migrateStableSystemSettings(rawSettings, sourceRegistry) {
+  const settings = { ...(rawSettings || {}) };
+  const groups = Array.isArray(sourceRegistry?.groups) ? sourceRegistry.groups : [];
+  let projectStageWasDisabled = settings[PROJECT_STAGE_GROUP.toggle] === false;
+
+  groups.forEach((group) => {
+    const groupId = String(group?.id || "").trim();
+    if (!groupId.startsWith("field-list_")) {
+      return;
+    }
+
+    const items = Array.isArray(group?.items) ? group.items : [];
+    const hasProjectOrStage = items.some((item) => {
+      const label = normalizeSettingLabel(item?.label);
+      return label === "проект" || label === "стадия";
+    });
+    if (!hasProjectOrStage) {
+      return;
+    }
+
+    if (settings[group?.toggle] === false) {
+      projectStageWasDisabled = true;
+    }
+
+    items.forEach((item) => {
+      const label = normalizeSettingLabel(item?.label);
+      const stableKey = STABLE_SYSTEM_FIELD_KEYS[label];
+      const legacyKey = String(item?.key || "").trim();
+      if (stableKey && settings[legacyKey] === false) {
+        settings[stableKey] = false;
+      }
+    });
+  });
+
+  if (projectStageWasDisabled) {
+    settings[PROJECT_STAGE_GROUP.toggle] = false;
+  }
+
+  return settings;
+}
+
 function getBlockSettings() {
   return new Promise((resolve) => {
     const chromeAny = chrome;
 
     if (chromeAny && chromeAny.storage) {
       chromeAny.storage.local.get([STORAGE_KEY_BLOCKS, STORAGE_KEY_SETTINGS_REGISTRY], (result) => {
-        const registry = normalizeSettingsRegistry(result[STORAGE_KEY_SETTINGS_REGISTRY]);
-        const settings = buildStoredSettings(result[STORAGE_KEY_BLOCKS], registry);
+        const sourceRegistry = result[STORAGE_KEY_SETTINGS_REGISTRY];
+        const registry = normalizeSettingsRegistry(sourceRegistry);
+        const settings = buildStoredSettings(migrateStableSystemSettings(result[STORAGE_KEY_BLOCKS], sourceRegistry), registry);
 
         try {
           localStorage.setItem(STORAGE_KEY_BLOCKS, JSON.stringify(settings));
           localStorage.setItem(STORAGE_KEY_SETTINGS_REGISTRY, JSON.stringify(registry));
         } catch {}
+
+        chromeAny.storage.local.set({
+          [STORAGE_KEY_BLOCKS]: settings,
+          [STORAGE_KEY_SETTINGS_REGISTRY]: registry,
+        });
 
         resolve(settings);
       });
@@ -885,7 +1004,10 @@ function getBlockSettings() {
 function getBlockSettingsSync() {
   try {
     const stored = localStorage.getItem(STORAGE_KEY_BLOCKS);
-    return buildStoredSettings(stored ? JSON.parse(stored) : {}, getSettingsRegistrySync());
+    const sourceRegistry = localStorage.getItem(STORAGE_KEY_SETTINGS_REGISTRY);
+    const parsedRegistry = sourceRegistry ? JSON.parse(sourceRegistry) : null;
+    const registry = normalizeSettingsRegistry(parsedRegistry);
+    return buildStoredSettings(migrateStableSystemSettings(stored ? JSON.parse(stored) : {}, parsedRegistry), registry);
   } catch {
     return buildStoredSettings({}, getSettingsRegistrySync());
   }
@@ -1715,6 +1837,12 @@ function hideEmptyFieldContainers(root) {
       return;
     }
 
+    // Bitrix may refill a container asynchronously after closing an app side panel.
+    // Recheck previously auto-hidden containers without our own display:none blocking their content.
+    if (container.style.display === "none") {
+      container.style.display = "";
+    }
+
     container.style.display = containerHasVisibleContent(container) ? "" : "none";
   });
 
@@ -1779,11 +1907,7 @@ function hasDescriptionContent(description) {
     return false;
   }
 
-  return Boolean(
-    description.querySelector(
-      ".tasks-card-entity-collapsible-text, .ui-typography-container, textarea, [contenteditable='true'], .tasks-card-description-editor-files.--read-only, .tasks-entity-text-area-files, .disk-user-field-control.--has-files.--embedded",
-    ),
-  );
+  return Boolean(description.querySelector(DESCRIPTION_CONTENT_SELECTOR));
 }
 
 function isCreateDescriptionPlaceholder(description) {
@@ -1805,11 +1929,19 @@ function isCreateDescriptionPlaceholder(description) {
     return true;
   }
 
-  const hasRealDescriptionStructure = Boolean(
-    description.querySelector(
-      ".tasks-card-entity-collapsible-text, .ui-typography-container, textarea, [contenteditable='true'], .tasks-card-description-editor-files.--read-only, .tasks-entity-text-area-files, .disk-user-field-control.--has-files.--embedded",
-    ),
-  );
+  if (isCreateMode) {
+    const hasEditorText = [...description.querySelectorAll("textarea, [contenteditable='true']")].some((editor) => {
+      const value = editor instanceof HTMLTextAreaElement ? editor.value : editor.textContent;
+      return Boolean(value?.replace(/\u200B/g, "").trim());
+    });
+    const hasAttachedContent = description.querySelector(
+      "img, .tasks-card-description-editor-files.--read-only, .tasks-entity-text-area-files, .disk-user-field-control.--has-files.--embedded",
+    );
+
+    return !hasEditorText && !hasAttachedContent;
+  }
+
+  const hasRealDescriptionStructure = Boolean(description.querySelector(DESCRIPTION_CONTENT_SELECTOR));
 
   return !hasRealDescriptionStructure;
 }
@@ -3234,6 +3366,30 @@ function mergePriorityFields(card) {
   normalizeRightColumnVisibility(card);
 }
 
+function syncCardFrame(card) {
+  const main = card.querySelector(SELECTORS.main);
+  const content = card.querySelector(SELECTORS.content);
+  const header = card.querySelector(SELECTORS.header);
+
+  if (!main || !content || !header) {
+    return;
+  }
+
+  if (header.parentElement !== main || header.nextElementSibling !== content) {
+    main.insertBefore(header, content);
+  }
+
+  const footer = card.querySelector(SELECTORS.footer);
+  const footerAction = card.querySelector(SELECTORS.footerEdit) || card.querySelector(SELECTORS.footerCreate);
+  if (footerAction && (footerAction.parentElement !== main || footerAction !== main.lastElementChild)) {
+    main.appendChild(footerAction);
+  }
+
+  if (footer) {
+    footer.style.display = "none";
+  }
+}
+
 async function applyLayout(card) {
   const main = card.querySelector(SELECTORS.main);
   const content = card.querySelector(SELECTORS.content);
@@ -3248,24 +3404,9 @@ async function applyLayout(card) {
     card.classList.add("btc-layout-applied");
     logMessage("Layout applied");
 
-    if (header.parentElement) {
-      header.parentElement.removeChild(header);
-    }
-    main.insertBefore(header, content);
-
-    const footerEdit = card.querySelector(SELECTORS.footerEdit);
-    const footerCreate = card.querySelector(SELECTORS.footerCreate);
-    if (footerEdit) {
-      main.appendChild(footerEdit);
-    } else if (footerCreate) {
-      main.appendChild(footerCreate);
-    }
-
-    const footer = card.querySelector(SELECTORS.footer);
-    if (footer) {
-      footer.style.display = "none";
-    }
   }
+
+  syncCardFrame(card);
 
   if (chat) {
     setupChatDrawer(card);
@@ -3325,6 +3466,7 @@ function observeVisibilityChanges(card) {
   }
 
   new MutationObserver(() => {
+    syncCardFrame(card);
     const settings = getBlockSettingsSync();
     applyVisibilitySettings(card, settings);
   }).observe(card, { childList: true, subtree: true });

@@ -494,7 +494,7 @@
   overflow-x: hidden !important;
   padding: 0 !important;
   align-self: stretch !important;
-  border-radius: 14px !important;
+  border-radius: 10px !important;
   background: #fff !important;
 }
 
@@ -506,8 +506,15 @@
   scrollbar-gutter: auto !important;
 }
 
-.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-compact="true"] > .tasks-card-change-description-mini-container {
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-compact="true"] > .tasks-card-change-description-mini-container:not(:has(.tasks-card-change-description-mini-btn[data-btc-create-placeholder="true"])) {
   display: none !important;
+}
+
+.tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-compact="true"] > .tasks-card-change-description-mini-container:has(.tasks-card-change-description-mini-btn[data-btc-create-placeholder="true"]) {
+  display: flex !important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  width: 100% !important;
 }
 
 .tasks-full-card.btc-layout-applied .tasks-card-description-field[data-btc-compact="true"] > .tasks-card-change-description-mini-btn,
@@ -853,7 +860,7 @@
   display: flex !important;
   flex-direction: column !important;
   overflow: hidden !important;
-  border-radius: 14px !important;
+  border-radius: 10px !important;
   background: #fff !important;
 }
 
