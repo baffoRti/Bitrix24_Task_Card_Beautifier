@@ -1364,6 +1364,81 @@
   overflow: hidden !important;
 }
 
+.btc-chat-ai-commands {
+  position: relative !important;
+  flex: 0 0 auto !important;
+}
+
+.btc-chat-ai-commands__toggle {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 0 !important;
+  height: 30px !important;
+  padding: 0 3px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: #a8b3bd !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+  cursor: pointer !important;
+}
+
+.btc-chat-ai-commands__toggle:hover,
+.btc-chat-ai-commands.--open .btc-chat-ai-commands__toggle {
+  background: transparent !important;
+  border-color: transparent !important;
+  color: #8997a3 !important;
+}
+
+.btc-chat-ai-commands__list {
+  position: absolute !important;
+  right: 0 !important;
+  bottom: calc(100% + 8px) !important;
+  z-index: 100 !important;
+  display: none !important;
+  width: max-content !important;
+  max-width: min(310px, calc(100vw - 32px)) !important;
+  padding: 6px !important;
+  border: 1px solid rgba(50, 73, 93, 0.14) !important;
+  border-radius: 10px !important;
+  background: #fff !important;
+  box-shadow: 0 10px 26px rgba(25, 44, 61, 0.18) !important;
+}
+
+.btc-chat-ai-commands.--open .btc-chat-ai-commands__list {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.btc-chat-drawer-content .bx-im-send-panel__container,
+.btc-chat-drawer-content .bx-im-textarea__container,
+.btc-chat-drawer-content .bx-im-textarea__content,
+.btc-chat-drawer-content .bx-im-textarea__bottom {
+  overflow: visible !important;
+}
+
+.btc-chat-ai-commands__item {
+  width: 100% !important;
+  padding: 8px 10px !important;
+  border: 0 !important;
+  border-radius: 6px !important;
+  background: transparent !important;
+  color: #283b4c !important;
+  font-size: 13px !important;
+  line-height: 1.25 !important;
+  text-align: left !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+}
+
+.btc-chat-ai-commands__item:hover {
+  background: rgba(68, 177, 224, 0.12) !important;
+  color: #0d779f !important;
+}
+
 @media (max-width: 1600px) {
   .tasks-full-card.btc-layout-applied .tasks-full-card-content {
     grid-template-columns: minmax(0, 1fr) 320px !important;

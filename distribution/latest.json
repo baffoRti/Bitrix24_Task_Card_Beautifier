@@ -1,8 +1,8 @@
 {
-  "version": "0.2.0",
-  "version_name": "0.2 pre",
-  "release_tag": "v0.2-pre",
-  "release_url": "https://github.com/baffoRti/Bitrix24_Task_Card_Beautifier/releases/tag/v0.2-pre",
-  "download_url": "https://github.com/baffoRti/Bitrix24_Task_Card_Beautifier/releases/download/v0.2-pre/Bitrix24-TaskCard-Beautifier-v0.2-pre.zip",
-  "published_at": "2026-08-07T00:00:00Z"
+  "version": "0.3.0",
+  "version_name": "0.3 pre",
+  "release_tag": "v0.3-pre",
+  "release_url": "https://github.com/baffoRti/Bitrix24_Task_Card_Beautifier/releases/tag/v0.3-pre",
+  "download_url": "https://github.com/baffoRti/Bitrix24_Task_Card_Beautifier/releases/download/v0.3-pre/Bitrix24-TaskCard-Beautifier-v0.3-pre.zip",
+  "published_at": "2026-09-01T00:00:00Z"
 }

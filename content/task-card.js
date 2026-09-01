@@ -82,6 +82,13 @@ const STORAGE_KEY_BLOCKS = "btc_blocks";
 const STORAGE_KEY_SETTINGS_REGISTRY = "btc_settings_registry";
 const STORAGE_KEY_CHECKLIST_HEIGHT = "btc-checklist-height";
 const STORAGE_KEY_CHECKLIST_COLLAPSED = "btc-checklist-collapsed";
+const AI_CHAT_COMMANDS = [
+  { label: "Изменить трудоемкость", value: "ии измени трудоемкость в задаче на" },
+  { label: "Разрешить менять крайний срок", value: "ии запроси разрешение изменять крайний срок", submit: true },
+  { label: "Передвинуть финиш", value: "ии передвинь финиш на" },
+  { label: "Завершить", value: "ии заверши задачу", submit: true },
+  { label: "Подтвердить", value: "Подтверждаю", replyToLatest: true },
+];
 const STORAGE_KEY_UPDATE_STATE = "btc_update_state";
 const STORAGE_KEY_UPDATE_DISMISSED_VERSION = "btc_update_dismissed_version";
 const RESIZER_BIND_VERSION = "v2";
@@ -1075,6 +1082,7 @@ function refreshAllAppliedCards() {
   const settings = getBlockSettingsSync();
   document.querySelectorAll(SELECTORS.card).forEach((card) => {
     if (card.classList.contains("btc-layout-applied")) {
+      mergePriorityFields(card);
       applyVisibilitySettings(card, settings);
     }
   });
@@ -1464,6 +1472,7 @@ async function openSettingsModal() {
         nextSettings[control.dataset.settingKey] = control.checked;
       });
       saveBlockSettings(nextSettings);
+      refreshAllAppliedCards();
     });
   });
 
@@ -1514,6 +1523,136 @@ function applyVisibilitySettings(card, settings) {
   normalizeRightColumnVisibility(card);
 }
 
+function setupAiChatCommands(chat) {
+  if (!chat || chat.dataset.btcAiCommandsBound === "true") {
+    return;
+  }
+
+  const closeMenus = () => {
+    chat.querySelectorAll(".btc-chat-ai-commands.--open").forEach((menu) => menu.classList.remove("--open"));
+  };
+
+  const setChatInputValue = (input, value) => {
+    input.focus();
+
+    if (input instanceof HTMLTextAreaElement || input instanceof HTMLInputElement) {
+      const setter = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(input), "value")?.set;
+      setter?.call(input, value);
+    } else {
+      input.textContent = value;
+    }
+
+    input.dispatchEvent(new InputEvent("input", { bubbles: true, inputType: "insertText", data: value }));
+  };
+
+  const submitChatInput = (input) => {
+    requestAnimationFrame(() => {
+      input.dispatchEvent(new KeyboardEvent("keydown", {
+        bubbles: true,
+        cancelable: true,
+        key: "Enter",
+        code: "Enter",
+        keyCode: 13,
+        which: 13,
+      }));
+    });
+  };
+
+  const replyToLatestMessage = () => new Promise((resolve) => {
+    const messages = [...chat.querySelectorAll(".bx-im-message-base__wrap")]
+      .filter((message) => message.getBoundingClientRect().height > 0)
+      .filter((message) => !message.classList.contains("--system"));
+    const message = messages.filter((item) => !item.classList.contains("--self")).at(-1) || messages.at(-1);
+    const contextButton = message?.querySelector(".bx-im-message-context-menu__button");
+    if (!contextButton) {
+      resolve(false);
+      return;
+    }
+
+    contextButton.click();
+    let attempts = 0;
+    const chooseReply = () => {
+      const replyButton = document.querySelector("#bx-im-message-context-menu button[title='Ответить']");
+      if (replyButton instanceof HTMLElement) {
+        replyButton.click();
+        requestAnimationFrame(() => resolve(true));
+        return;
+      }
+
+      attempts += 1;
+      if (attempts < 10) {
+        requestAnimationFrame(chooseReply);
+      } else {
+        resolve(false);
+      }
+    };
+    requestAnimationFrame(chooseReply);
+  });
+
+  const ensureMenu = () => {
+    const inputPanel = chat.querySelector(".bx-im-textarea__bottom");
+    if (!inputPanel || inputPanel.querySelector(".btc-chat-ai-commands")) {
+      return;
+    }
+
+    const menu = document.createElement("div");
+    menu.className = "btc-chat-ai-commands";
+
+    const toggle = document.createElement("button");
+    toggle.type = "button";
+    toggle.className = "btc-chat-ai-commands__toggle";
+    toggle.textContent = "ИИ";
+    toggle.setAttribute("aria-label", "Команды ИИ");
+    toggle.setAttribute("aria-expanded", "false");
+
+    const list = document.createElement("div");
+    list.className = "btc-chat-ai-commands__list";
+    AI_CHAT_COMMANDS.forEach((command) => {
+      const item = document.createElement("button");
+      item.type = "button";
+      item.className = "btc-chat-ai-commands__item";
+      item.textContent = command.label;
+      item.addEventListener("click", async () => {
+        if (command.replyToLatest) {
+          await replyToLatestMessage();
+        }
+        const input = chat.querySelector(
+          ".bx-im-textarea__message[contenteditable='true'], .bx-im-textarea__contenteditable[contenteditable='true'], textarea, [contenteditable='true']",
+        );
+        if (input instanceof HTMLElement) {
+          setChatInputValue(input, command.value);
+          if (command.submit) {
+            submitChatInput(input);
+          }
+        }
+        menu.classList.remove("--open");
+        toggle.setAttribute("aria-expanded", "false");
+      });
+      list.appendChild(item);
+    });
+
+    toggle.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const isOpen = menu.classList.toggle("--open");
+      toggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    menu.append(toggle, list);
+    inputPanel.prepend(menu);
+  };
+
+  const observer = new MutationObserver(ensureMenu);
+  observer.observe(chat, { childList: true, subtree: true });
+  chat.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element) || !event.target.closest(".btc-chat-ai-commands")) {
+      closeMenus();
+    }
+  });
+  ensureMenu();
+  chat.dataset.btcAiCommandsBound = "true";
+}
+
 function setupChatDrawer(card) {
   const chat = card.querySelector(SELECTORS.chat);
   if (!chat || card.querySelector(".btc-chat-drawer")) {
@@ -1531,6 +1670,7 @@ function setupChatDrawer(card) {
 
   chat.classList.add("btc-chat-drawer-content");
   panel.appendChild(chat);
+  setupAiChatCommands(chat);
   drawer.appendChild(overlay);
   drawer.appendChild(panel);
   card.appendChild(drawer);
@@ -3351,6 +3491,7 @@ function mergePriorityFields(card) {
     if (projectRow) {
       moveRowToFieldList(mainFieldList, projectRow, "start");
       hideEmptyFieldListRows(projectFieldList);
+      projectContainer.style.display = hasVisibleFieldListRows(projectFieldList) ? "" : "none";
     }
   }
 
@@ -3465,11 +3606,46 @@ function observeVisibilityChanges(card) {
     return;
   }
 
-  new MutationObserver(() => {
+  let projectSyncScheduled = false;
+  const observerOptions = { childList: true, subtree: true };
+  const needsProjectRowSync = () => {
+    const fields = card.querySelector(SELECTORS.fields);
+    const mainFieldList = fields?.querySelector(SELECTORS.fieldContainer)?.querySelector(".b24-field-list");
+    const chipsFields = card.querySelector(SELECTORS.chipsFields);
+    if (!mainFieldList || !chipsFields || hasFieldRow(mainFieldList, "Проект")) {
+      return false;
+    }
+
+    return [...chipsFields.querySelectorAll(":scope > .tasks-full-card-field-container")].some((container) => {
+      const fieldList = container.querySelector(".b24-field-list");
+      return fieldList ? hasFieldRow(fieldList, "Проект") : false;
+    });
+  };
+
+  const observer = new MutationObserver(() => {
     syncCardFrame(card);
     const settings = getBlockSettingsSync();
     applyVisibilitySettings(card, settings);
-  }).observe(card, { childList: true, subtree: true });
+
+    if (projectSyncScheduled || !needsProjectRowSync()) {
+      return;
+    }
+
+    projectSyncScheduled = true;
+    requestAnimationFrame(() => {
+      projectSyncScheduled = false;
+      if (!document.contains(card) || !needsProjectRowSync()) {
+        return;
+      }
+
+      observer.disconnect();
+      mergePriorityFields(card);
+      applyVisibilitySettings(card, getBlockSettingsSync());
+      observer.observe(card, observerOptions);
+    });
+  });
+
+  observer.observe(card, observerOptions);
 
   card.dataset.btcVisibilityObserverBound = "true";
 }
